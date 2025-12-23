@@ -1,0 +1,33 @@
+[project]
+name = "coursework"
+version = "0.1.0"
+description = ""
+authors = [ {name = "Глеб Трофимов", email = "GetromGleb@gmail.com"} ]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "pandas",
+    "openpyxl",
+    "pytest",
+    "python-dotenv",
+    "requests"
+]
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.black]
+line-length = 88
+target-version = ['py311']
+skip-string-normalization = true
+
+[tool.isort]
+profile = "black"
+line_length = 88
+
+[tool.mypy]
+python_version = 3.13
+ignore_missing_imports = true
+strict = false
+check_untyped_defs = true
