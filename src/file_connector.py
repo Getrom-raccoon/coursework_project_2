@@ -1,5 +1,6 @@
 import json
 from abc import ABC, abstractmethod
+
 from src.vacancy import Vacancy
 
 
@@ -26,14 +27,15 @@ class JSONSaver(AbstractFileConnector):
     def _ensure_directory(self):
         """Создаёт папку data, если её нет."""
         import os
+
         os.makedirs("data", exist_ok=True)
 
     def _ensure_file_exists(self):
         try:
-            with open(self.filename, 'r', encoding='utf-8') as f:
+            with open(self.filename, "r", encoding="utf-8") as f:
                 json.load(f)
         except FileNotFoundError:
-            with open(self.filename, 'w', encoding='utf-8') as f:
+            with open(self.filename, "w", encoding="utf-8") as f:
                 json.dump([], f, ensure_ascii=False, indent=4)
 
     def add_vacancy(self, vacancy):
@@ -43,7 +45,7 @@ class JSONSaver(AbstractFileConnector):
 
     def get_vacancies(self, criteria=None):
         try:
-            with open(self.filename, 'r', encoding='utf-8') as f:
+            with open(self.filename, "r", encoding="utf-8") as f:
                 data = json.load(f)
         except FileNotFoundError:
             data = []
@@ -54,7 +56,7 @@ class JSONSaver(AbstractFileConnector):
                 title=item["title"],
                 url=item["url"],
                 salary=item["salary"],
-                description=item["description"]
+                description=item["description"],
             )
             vacancies.append(vacancy)
 
@@ -64,7 +66,10 @@ class JSONSaver(AbstractFileConnector):
                 match = True
                 for key, value in criteria.items():
                     if key == "keyword":
-                        if value.lower() not in vac.title.lower() and value.lower() not in vac.description.lower():
+                        if (
+                            value.lower() not in vac.title.lower()
+                            and value.lower() not in vac.description.lower()
+                        ):
                             match = False
                             break
                     elif key == "salary_min":
@@ -83,13 +88,13 @@ class JSONSaver(AbstractFileConnector):
         self._save_to_file(vacancies)
 
     def _save_to_file(self, vacancies):
-        with open(self.filename, 'w', encoding='utf-8') as f:
+        with open(self.filename, "w", encoding="utf-8") as f:
             data = [
                 {
                     "title": v.title,
                     "url": v.url,
                     "salary": v.salary,
-                    "description": v.description
+                    "description": v.description,
                 }
                 for v in vacancies
             ]

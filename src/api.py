@@ -1,5 +1,6 @@
-import requests
 from abc import ABC, abstractmethod
+
+import requests
 
 
 class AbstractAPI(ABC):
@@ -22,12 +23,7 @@ class HeadHunterAPI(AbstractAPI):
         Получает вакансии с hh.ru по ключевому слову.
         Возвращает список вакансий в формате JSON.
         """
-        params = {
-            "text": keyword,
-            "area": 1,
-            "per_page": 100,
-            "page": 0
-        }
+        params = {"text": keyword, "area": 1, "per_page": 100, "page": 0}
 
         try:
             response = requests.get(self.base_url, params=params)

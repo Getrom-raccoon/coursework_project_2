@@ -1,4 +1,3 @@
-from abc import ABC, abstractmethod
 
 
 class Vacancy:
@@ -60,7 +59,7 @@ class Vacancy:
         # Упрощенная логика: берем нижнюю границу диапазона
         try:
             # Убираем пробелы и символы, оставляем только цифры
-            clean_salary = ''.join(filter(str.isdigit, self.salary))
+            clean_salary = "".join(filter(str.isdigit, self.salary))
             if clean_salary:
                 return int(clean_salary)
         except (ValueError, TypeError):

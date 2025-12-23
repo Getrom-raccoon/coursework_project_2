@@ -1,6 +1,6 @@
 from src.api import HeadHunterAPI
-from src.vacancy import Vacancy
 from src.file_connector import JSONSaver
+from src.vacancy import Vacancy
 
 
 def filter_vacancies(vacancies, keywords):
@@ -15,7 +15,10 @@ def filter_vacancies(vacancies, keywords):
     filtered = []
     for vacancy in vacancies:
         for word in keywords:
-            if word.lower() in vacancy.title.lower() or word.lower() in vacancy.description.lower():
+            if (
+                word.lower() in vacancy.title.lower()
+                or word.lower() in vacancy.description.lower()
+            ):
                 filtered.append(vacancy)
                 break
     return filtered
@@ -29,11 +32,15 @@ def get_vacancies_by_salary(vacancies, salary_range_str):
     :return: Отфильтрованный список вакансий.
     """
     try:
-        parts = salary_range_str.split('-')
+        parts = salary_range_str.split("-")
         if len(parts) == 2:
             min_salary = int(parts[0].strip())
             max_salary = int(parts[1].strip())
-            return [v for v in vacancies if min_salary <= v._get_salary_value() <= max_salary]
+            return [
+                v
+                for v in vacancies
+                if min_salary <= v._get_salary_value() <= max_salary
+            ]
         else:
             min_salary = int(salary_range_str.strip())
             return [v for v in vacancies if v._get_salary_value() >= min_salary]
@@ -111,9 +118,13 @@ def user_interaction():
     print(f"Вакансии сохранены в файл {json_saver.filename}.")
 
     top_n = int(input("Введите количество вакансий для вывода в топ N: ") or 5)
-    filter_words_input = input("Введите ключевые слова для фильтрации вакансий (через пробел): ")
+    filter_words_input = input(
+        "Введите ключевые слова для фильтрации вакансий (через пробел): "
+    )
     filter_words = filter_words_input.split() if filter_words_input else []
-    salary_range = input("Введите диапазон зарплат (например, 100000 - 150000): ").strip()
+    salary_range = input(
+        "Введите диапазон зарплат (например, 100000 - 150000): "
+    ).strip()
 
     filtered_vacancies = filter_vacancies(vacancies_list, filter_words)
     if salary_range:

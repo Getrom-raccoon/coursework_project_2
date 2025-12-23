@@ -1,11 +1,17 @@
 import unittest
+
 from src.vacancy import Vacancy
 
 
 class TestVacancy(unittest.TestCase):
     def test_init_valid(self):
         """Тест инициализации вакансии с корректными данными."""
-        vacancy = Vacancy("Python Developer", "https://hh.ru/vacancy/123", "100 000 руб.", "Требования...")
+        vacancy = Vacancy(
+            "Python Developer",
+            "https://hh.ru/vacancy/123",
+            "100 000 руб.",
+            "Требования...",
+        )
         self.assertEqual(vacancy.title, "Python Developer")
         self.assertEqual(vacancy.url, "https://hh.ru/vacancy/123")
         self.assertEqual(vacancy.salary, "100 000 руб.")
@@ -23,7 +29,9 @@ class TestVacancy(unittest.TestCase):
 
     def test_salary_validation(self):
         """Тест валидации зарплаты."""
-        vacancy = Vacancy("Python Developer", "https://hh.ru/vacancy/123", "", "Требования...")
+        vacancy = Vacancy(
+            "Python Developer", "https://hh.ru/vacancy/123", "", "Требования..."
+        )
         self.assertEqual(vacancy.salary, "Зарплата не указана")
 
     def test_comparison(self):
@@ -43,7 +51,7 @@ class TestVacancy(unittest.TestCase):
                 "name": "Python Developer",
                 "alternate_url": "https://hh.ru/vacancy/123",
                 "salary": {"from": 100000, "to": 150000, "currency": "RUR"},
-                "snippet": {"requirement": "Опыт работы от 3 лет"}
+                "snippet": {"requirement": "Опыт работы от 3 лет"},
             }
         ]
         vacancies = Vacancy.cast_to_object_list(raw_data)
@@ -52,5 +60,5 @@ class TestVacancy(unittest.TestCase):
         self.assertEqual(vacancies[0].salary, "100000-150000 RUR")
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     unittest.main()
