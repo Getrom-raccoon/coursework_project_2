@@ -1,33 +1,32 @@
-[project]
-name = "coursework"
-version = "0.1.0"
-description = ""
-authors = [ {name = "Глеб Трофимов", email = "GetromGleb@gmail.com"} ]
-readme = "README.md"
-requires-python = ">=3.13"
-dependencies = [
-    "pandas",
-    "openpyxl",
-    "pytest",
-    "python-dotenv",
-    "requests"
-]
-
 [build-system]
-requires = ["poetry-core>=2.0.0,<3.0.0"]
+requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
 
-[tool.black]
-line-length = 88
-target-version = ['py311']
-skip-string-normalization = true
+[tool.poetry]
+name = "coursework-project-2"
+version = "0.1.0"
+description = "Курсовая работа по интеграции с API hh.ru"
+authors = ["Your Name <you@example.com>"]
 
-[tool.isort]
-profile = "black"
-line_length = 88
+# Ключевая строка: указываем, что src — это пакет
+packages = [
+    { include = "src" }
+]
 
-[tool.mypy]
-python_version = 3.13
-ignore_missing_imports = true
-strict = false
-check_untyped_defs = true
+[tool.poetry.dependencies]
+python = "^3.10"
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^8.0.0"
+
+[tool.poetry.scripts]
+main = "src.user_interface:user_interaction"
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+
+[tool.flake8]
+max-line-length = 88
+extend-ignore = "E203, E266, E501, W503"
