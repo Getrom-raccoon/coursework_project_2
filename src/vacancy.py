@@ -11,10 +11,30 @@ class Vacancy:
         :param salary: Зарплата (строка)
         :param description: Описание вакансии
         """
-        self.title = self._validate_title(title)
-        self.url = self._validate_url(url)
-        self.salary = self._validate_salary(salary)
-        self.description = description or ""
+        self.__title = self._validate_title(title)
+        self.__url = self._validate_url(url)
+        self.__salary = self._validate_salary(salary)
+        self.__description = description or ""
+
+    @property
+    def title(self):
+        """Публичный геттер для title."""
+        return self.__title
+
+    @property
+    def url(self):
+        """Публичный геттер для url."""
+        return self.__url
+
+    @property
+    def salary(self):
+        """Публичный геттер для salary."""
+        return self.__salary
+
+    @property
+    def description(self):
+        """Публичный геттер для description."""
+        return self.__description
 
     def _validate_title(self, title: str) -> str:
         """Валидация названия вакансии."""

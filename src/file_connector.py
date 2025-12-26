@@ -19,10 +19,16 @@ class AbstractFileConnector(ABC):
 
 
 class JSONSaver(AbstractFileConnector):
+    """Класс для сохранения информации о вакансиях в JSON-файл."""
+
     def __init__(self, filename="data/vacancies.json"):
-        self.filename = filename
+        self.__filename = filename
         self._ensure_directory()
         self._ensure_file_exists()
+
+    @property
+    def filename(self):
+        return self.__filename
 
     def _ensure_directory(self):
         """Создаёт папку data, если её нет."""
